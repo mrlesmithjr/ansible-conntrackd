@@ -1,0 +1,4 @@
+---
+# defaults file for ansible-conntrackd
+config_conntrackd: false  #defines if conntrackd should be configured
+enable_conntrackd: true  #defines if conntrackd should be enabled
