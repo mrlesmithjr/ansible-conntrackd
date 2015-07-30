@@ -6,13 +6,18 @@ Installs conntrackd http://conntrack-tools.netfilter.org/conntrackd.html
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Each host must be configured with more than one network interface. A dedicated interface is used for syncing.
 
 Role Variables
 --------------
 
 ````
 config_conntrackd: false  #defines if conntrackd should be configured
+conntrackd_ignore_addresses:
+  - '{{ ansible_default_ipv4.address }}'
+  - '{{ conntrackd_sync_ip }}'
+conntrackd_sync_ip: 1.1.1.1  #defines ip address to use for syncing...each host unique...define in host_vars/host
+conntrackd_sync_int: eth1  #defines interface to use for syncing...must be a dedicated interface
 enable_conntrackd: true  #defines if conntrackd should be enabled
 ````
 

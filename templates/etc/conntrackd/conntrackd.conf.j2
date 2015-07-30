@@ -31,7 +31,7 @@ Sync {
 
 		#
 		# If the firewall replica goes from primary to backup,
-		# the conntrackd -t command is invoked in the script. 
+		# the conntrackd -t command is invoked in the script.
 		# This command schedules a flush of the table in N seconds.
 		# This is useful to purge the connection tracking table of
 		# zombie entries and avoid clashes with old entries if you
@@ -76,7 +76,7 @@ Sync {
 	#	iptables -I OUTPUT -d 225.0.0.50 -j ACCEPT
 	#
 	Multicast {
-		# 
+		#
 		# Multicast address: The address that you use as destination
 		# in the synchronization messages. You do not have to add
 		# this IP to any of your existing interfaces. If any doubt,
@@ -129,7 +129,7 @@ Sync {
 		#
 		RcvSocketBuffer 1249280
 
-		# 
+		#
 		# Enable/Disable message checksumming. This is a good
 		# property to achieve fault-tolerance. In case of doubt, do
 		# not modify this value.
@@ -142,8 +142,8 @@ Sync {
 	# more than one dedicated link does not mean that state-updates will
 	# be sent to all of them. There is only one active dedicated link at
 	# a given moment. The `Default' keyword indicates that this interface
-	# will be selected as the initial dedicated link. You can have 
-	# up to 4 redundant dedicated links. Note: Use different multicast 
+	# will be selected as the initial dedicated link. You can have
+	# up to 4 redundant dedicated links. Note: Use different multicast
 	# groups for every redundant link.
 	#
 	# Multicast Default {
@@ -160,9 +160,9 @@ Sync {
 	# You can use Unicast UDP instead of Multicast to propagate events.
 	# Note that you cannot use unicast UDP and Multicast at the same
 	# time, you can only select one.
-	# 
+	#
 	# UDP {
-		# 
+		#
 		# UDP address that this firewall uses to listen to events.
 		#
 		# IPv4_address 192.168.2.100
@@ -192,7 +192,7 @@ Sync {
 		#
 		# Interface eth2
 
-		# 
+		#
 		# The sender socket buffer size
 		#
 		# SndSocketBuffer 1249280
@@ -202,15 +202,15 @@ Sync {
 		#
 		# RcvSocketBuffer 1249280
 
-		# 
-		# Enable/Disable message checksumming. 
+		#
+		# Enable/Disable message checksumming.
 		#
 		# Checksum on
 	# }
 
-	# 
+	#
 	# Other unsorted options that are related to the synchronization.
-	# 
+	#
 	# Options {
 		#
 		# TCP state-entries have window tracking disabled by default,
@@ -273,7 +273,7 @@ General {
 	HashSize 32768
 
 	#
-	# Maximum number of conntracks, it should be double of: 
+	# Maximum number of conntracks, it should be double of:
 	# $ cat /proc/sys/net/netfilter/nf_conntrack_max
 	# since the daemon may keep some dead entries cached for possible
 	# retransmission during state synchronization.
@@ -294,7 +294,7 @@ General {
 
 	#
 	# Lockfile
-	# 
+	#
 	LockFile /var/lock/conntrack.lock
 
 	#
@@ -344,7 +344,7 @@ General {
 	#
 	# NetlinkEventsReliable Off
 
-	# 
+	#
 	# By default, the daemon receives state updates following an
 	# event-driven model. You can modify this behaviour by switching to
 	# polling mode with the PollSecs clause. This clause tells conntrackd
@@ -373,13 +373,13 @@ General {
 	# State. The filter is attached to an action that can be: Accept or
 	# Ignore. Thus, you can define the event filtering policy of the
 	# filter-sets in positive or negative logic depending on your needs.
-	# You can select if conntrackd filters the event messages from 
+	# You can select if conntrackd filters the event messages from
 	# user-space or kernel-space. The kernel-space event filtering
 	# saves some CPU cycles by avoiding the copy of the event message
 	# from kernel-space to user-space. The kernel-space event filtering
 	# is prefered, however, you require a Linux kernel >= 2.6.29 to
-	# filter from kernel-space. If you want to select kernel-space 
-	# event filtering, use the keyword 'Kernelspace' instead of 
+	# filter from kernel-space. If you want to select kernel-space
+	# event filtering, use the keyword 'Kernelspace' instead of
 	# 'Userspace'.
 	#
 	Filter From Userspace {
@@ -405,11 +405,11 @@ General {
 		#
 		Address Ignore {
 			IPv4_address 127.0.0.1 # loopback
-{% for item in conntrackd_ignore_addresses %}
-{% if item is defined %}
+{% if conntrackd_ignore_addresses is defined %}
+{%   for item in conntrackd_ignore_addresses %}
 			IPv4_address {{ item }}
+{%   endfor %}
 {% endif %}
-{% endfor %}
 #			IPv4_address 192.168.0.100 # virtual IP 1
 #			IPv4_address 192.168.1.100 # virtual IP 2
 #			IPv4_address 192.168.0.1
@@ -426,7 +426,7 @@ General {
 		#
 		# Uncomment this line below if you want to filter by flow state.
 		# This option introduces a trade-off in the replication: it
-		# reduces CPU consumption at the cost of having lazy backup 
+		# reduces CPU consumption at the cost of having lazy backup
 		# firewall replicas. The existing TCP states are: SYN_SENT,
 		# SYN_RECV, ESTABLISHED, FIN_WAIT, CLOSE_WAIT, LAST_ACK,
 		# TIME_WAIT, CLOSED, LISTEN.
