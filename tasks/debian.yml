@@ -1,7 +1,7 @@
 ---
 - name: debian_conntrackd | installing packages
   apt:
-    name: {{ packages }}
+    name: "{{ packages }}"
     state: present
   vars:
     packages:
