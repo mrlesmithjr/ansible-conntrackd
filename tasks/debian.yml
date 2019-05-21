@@ -1,6 +1,9 @@
 ---
 - name: debian_conntrackd | installing packages
-  apt: name={{ item }} state=present
-  with_items:
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
     - conntrack
     - conntrackd
