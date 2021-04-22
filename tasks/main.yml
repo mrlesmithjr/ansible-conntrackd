@@ -4,4 +4,10 @@
   when: ansible_os_family == "Debian"
 
 - include: config_conntrackd.yml
-  when: enable_conntrackd and config_conntrackd
+  when: conntrackd_enable and conntrackd_config
+
+- name: enable service
+  service:
+    name: conntrackd
+    state: "{% if conntrackd_enable %}started{% else %}stopped{% endif %}"
+    enabled: "{{ conntrackd_enable }}"
