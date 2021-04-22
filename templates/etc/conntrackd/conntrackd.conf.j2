@@ -15,8 +15,8 @@ Sync {
 		# Default is 131072 objects.
 		#
 		# ResendQueueSize 131072
-{% if resendqueuesize is defined %}
-		ResendQueueSize {{ resendqueuesize }}
+{% if conntrackd_resendqueuesize is defined %}
+		ResendQueueSize {{ conntrackd_resendqueuesize }}
 {% endif %}
 
 		#
@@ -31,8 +31,8 @@ Sync {
 		# mechanism. By default, this option is not set.
 		#
 		# CommitTimeout 180
-{% if committimeout is defined %}
-		CommitTimeout {{ committimeout }}
+{% if conntrackd_committimeout is defined %}
+		CommitTimeout {{ conntrackd_committimeout }}
 {% endif %}
 
 		#
@@ -44,8 +44,8 @@ Sync {
 		# trigger several consecutive hand-overs. Default is 60 seconds.
 		#
 		# PurgeTimeout 60
-{% if purgetimeout is defined %}
-		PurgeTimeout {{ purgetimeout }}
+{% if conntrackd_purgetimeout is defined %}
+		PurgeTimeout {{ conntrackd_purgetimeout }}
 {% endif %}
 
 		# Set the acknowledgement window size. If you decrease this
@@ -59,8 +59,8 @@ Sync {
 		# with oprofile. If not set, default window size is 300.
 		#
 		# ACKWindowSize 300
-{% if ackwindowsize is defined %}
-		ACKWindowSize {{ ackwindowsize }}
+{% if conntrackd_ackwindowsize is defined %}
+		ACKWindowSize {{ conntrackd_ackwindowsize }}
 {% endif %}
 
 		#
@@ -76,8 +76,8 @@ Sync {
 		# using the fail-over scripts instead of enabling this option!
 		#
 		# DisableExternalCache Off
-{% if disableexternalcache is defined %}
-		DisableExternalCache {{ disableexternalcache }}
+{% if conntrackd_disableexternalcache is defined %}
+		DisableExternalCache {{ conntrackd_disableexternalcache }}
 {% endif %}
 	}
 
@@ -97,13 +97,13 @@ Sync {
 		# this IP to any of your existing interfaces. If any doubt,
 		# do not modify this value.
 		#
-		IPv4_address {{ multicast_ipv4_address }}
+		IPv4_address {{ conntrackd_multicast_ipv4_address }}
 
 		#
 		# The multicast group that identifies the cluster. If any
 		# doubt, do not modify this value.
 		#
-		Group {{ multicast_group }}
+		Group {{ conntrackd_multicast_group }}
 
 		#
 		# IP address of the interface that you are going to use to
@@ -130,7 +130,7 @@ Sync {
 		# of the sender buffer. The default size is usually around
 		# ~100 KBytes which is fairly small for busy firewalls.
 		#
-		SndSocketBuffer {{ sndsocketbuffer }}
+		SndSocketBuffer {{ conntrackd_sndsocketbuffer }}
 
 		# The multicast receiver uses a buffer to enqueue the packets
 		# that the socket is pending to handle. The default size of this
@@ -142,14 +142,14 @@ Sync {
 		# the receiver buffer. The default size is usually around
 		# ~100 KBytes which is fairly small for busy firewalls.
 		#
-		RcvSocketBuffer {{ rcvsocketbuffer }}
+		RcvSocketBuffer {{ conntrackd_rcvsocketbuffer }}
 
 		#
 		# Enable/Disable message checksumming. This is a good
 		# property to achieve fault-tolerance. In case of doubt, do
 		# not modify this value.
 		#
-		Checksum {{ checksum }}
+		Checksum {{ conntrackd_checksum }}
 	}
 	#
 	# You can specify more than one dedicated link. Thus, if one dedicated
@@ -285,7 +285,7 @@ General {
 	# the closer it gets to O(1) at the cost of consuming more memory.
 	# Read some documents about tuning hashtables for further reference.
 	#
-	HashSize {{ hashsize }}
+	HashSize {{ conntrackd_hashsize }}
 
 	#
 	# Maximum number of conntracks, it should be double of:
@@ -293,29 +293,29 @@ General {
 	# since the daemon may keep some dead entries cached for possible
 	# retransmission during state synchronization.
 	#
-	HashLimit {{ hashlimit }}
+	HashLimit {{ conntrackd_hashlimit }}
 
 	#
 	# Logfile: on (/var/log/conntrackd.log), off, or a filename
 	# Default: off
 	#
-	LogFile {{ logfile }}
+	LogFile {{ conntrackd_logfile }}
 
 	#
 	# Syslog: on, off or a facility name (daemon (default) or local0..7)
 	# Default: off
 	#
 	#Syslog on
-{% if syslog is defined %}
-	Syslog {{ syslog }}
+{% if conntrackd_syslog is defined %}
+	Syslog {{ conntrackd_syslog }}
 {% endif %}
 
 	#
 	# Lockfile
 	#
 	LockFile /var/lock/conntrack.lock
-{% if lockfile is defined %}
-  LockFile {{ lockfile }}
+{% if conntrackd_lockfile is defined %}
+  LockFile {{ conntrackd_lockfile }}
 {% endif %}
 
 	#
@@ -334,7 +334,7 @@ General {
 	# and high CPU consumption. This example configuration file sets the
 	# size to 2 MBytes to avoid this sort of problems.
 	#
-	NetlinkBufferSize {{ netlinkbuffersize }}
+	NetlinkBufferSize {{ conntrackd_netlinkbuffersize }}
 
 	#
 	# The daemon doubles the size of the netlink event socket buffer size
@@ -342,7 +342,7 @@ General {
 	# maximum buffer size growth that can be reached. This example file
 	# sets the size to 8 MBytes.
 	#
-	NetlinkBufferSizeMaxGrowth {{ netlinkbuffersizemaxgrowth }}
+	NetlinkBufferSizeMaxGrowth {{ conntrackd_netlinkbuffersizemaxgrowth }}
 
 	#
 	# If the daemon detects that Netlink is dropping state-change events,
@@ -356,8 +356,8 @@ General {
 	# specified, the daemon assumes that this option is enabled.
 	#
 	# NetlinkOverrunResync On
-{% if netlinkoverrunresync is defined %}
-	NetlinkOverrunResync {{ netlinkoverrunresync }}
+{% if conntrackd_netlinkoverrunresync is defined %}
+	NetlinkOverrunResync {{ conntrackd_netlinkoverrunresync }}
 {% endif %}
 
 	#
@@ -367,8 +367,8 @@ General {
 	# a Linux kernel >= 2.6.31.
 	#
 	# NetlinkEventsReliable Off
-{% if netlinkeventsreliable is defined %}
-	NetlinkEventsReliable {{ netlinkeventsreliable }}
+{% if conntrackd_etlinkeventsreliable is defined %}
+	NetlinkEventsReliable {{ conntrackd_netlinkeventsreliable }}
 {% endif %}
 
 	#
@@ -382,8 +382,8 @@ General {
 	# chances of recovering connections.
 	#
 	# PollSecs 15
-{% if pollsecs is defined %}
-	Pollsecs {{ pollsecs }}
+{% if conntrackd_pollsecs is defined %}
+	Pollsecs {{ conntrackd_pollsecs }}
 {% endif %}
 
 	#
@@ -396,8 +396,8 @@ General {
 	# Default (if not set) is 100.
 	#
 	# EventIterationLimit 100
-{% if eventiterationlimit is defined %}
-	EventIterationLimit {{ eventiterationlimit }}
+{% if conntrackd_eventiterationlimit is defined %}
+	EventIterationLimit {{ conntrackd_eventiterationlimit }}
 {% endif %}
 
 	#
@@ -415,14 +415,14 @@ General {
 	# event filtering, use the keyword 'Kernelspace' instead of
 	# 'Userspace'.
 	#
-	Filter From {{ filterfrom }} {
+	Filter From {{ conntrackd_filterfrom }} {
 		#
 		# Accept only certain protocols: You may want to replicate
 		# the state of flows depending on their layer 4 protocol.
 		#
-		Protocol {{ filterfromprotocol }} {
-{% if filterfromprotocols is defined %}
-{%	for item in filterfromprotocols %}
+		Protocol {{ conntrackd_filterfromprotocol }} {
+{% if conntrackd_filterfromprotocols is defined %}
+{%	for item in conntrackd_filterfromprotocols %}
 			{{ item }}
 {%	endfor %}
 {% endif %}
@@ -474,9 +474,9 @@ General {
 		# State Accept {
 		#	ESTABLISHED CLOSED TIME_WAIT CLOSE_WAIT for TCP
 		# }
-{% if state_accept is defined %}
+{% if conntrackd_state_accept is defined %}
 		State Accept {
-			{{ state_accept }}
+			{{ conntrackd_state_accept }}
 		}
 {% endif %}
 	}
